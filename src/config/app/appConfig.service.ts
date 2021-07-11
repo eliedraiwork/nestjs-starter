@@ -16,4 +16,8 @@ export class AppConfigService {
     get defaultLanguage(): string {
         return this.configService.get<string>('defaultLanguage');
     }
+
+    get version(): string {
+        return this.configService.get<string>('version');
+    }
 }

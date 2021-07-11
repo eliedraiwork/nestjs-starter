@@ -5,7 +5,8 @@ export default () => {
     const configObject = {
         env: process.env.APP_ENV,
         port: parseInt(process.env.APP_PORT),
-        defaultLanguage: process.env.DEFAULT_LANGUAGE || 'eng',
+        defaultLanguage: process.env.DEFAULT_LANGUAGE || 'en',
+        version: process.env.VERSION || '0.0.2',
     };
 
     const config = new Config(configObject);

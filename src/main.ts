@@ -4,19 +4,20 @@ import { AppModule } from './app.module';
 import * as ip from 'ip';
 import { AppConfigService } from './config/app/appConfig.service';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as helmet from 'helmet';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     const appConfig: AppConfigService = app.get('AppConfigService');
 
-    generateSwaggerApi(
-        app,
-        'api/doc',
-        'API Docs',
-        'Clienteling  API',
-        'Middleware API for Clienteling Mobile App',
-        '1.0.0'
-    );
+    //  generate api doc
+    const appVersion = appConfig.version;
+    generateSwaggerApi(app, 'api/docs', 'API Docs', 'API', 'Middleware for App', appVersion);
+
+    //  use helmet for security
+    app.use(helmet());
 
     await app.listen(appConfig.port);
 
@@ -41,6 +42,8 @@ function generateSwaggerApi(
     SwaggerModule.setup(route, app, document, {
         customSiteTitle: siteTitle,
     });
+    const fileName = path.resolve(process.cwd(), 'docs', 'swagger.json');
+    fs.writeFileSync(fileName, JSON.stringify(document));
 }
 
 //  Bootstrap the app

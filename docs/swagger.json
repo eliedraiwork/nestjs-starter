@@ -1,0 +1,1 @@
+{"openapi":"3.0.0","info":{"title":"API","description":"Middleware for App","version":"1.0.0","contact":{}},"tags":[],"servers":[],"components":{},"paths":{"/ping":{"get":{"operationId":"AppController_ping","parameters":[],"responses":{"200":{"description":""}}}}}}
